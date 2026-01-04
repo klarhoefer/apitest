@@ -10,7 +10,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="NSwag.AspNetCore" Version="14.6.3" />
+    <PackageReference Include="NSwag.MSBuild" Version="14.6.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.0" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <OpenApiOutput>$(ProjectDir)openapi\openapi.json</OpenApiOutput>
+  </PropertyGroup>
+
+  <Target Name="GenerateOpenApi" AfterTargets="Build">
+    <Exec Command="$(NSwagExe_Net80) aspnetcore2openapi
+      /assembly:$(TargetPath)
+      /project:apitest.fsproj
+      /output:$(OpenApiOutput)
+      /format:json" />
+  </Target>
 
 </Project>

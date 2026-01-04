@@ -28,6 +28,7 @@ module Program =
         let builder = WebApplication.CreateBuilder(args)
 
         builder.Services.AddControllers()
+        // builder.Services.AddOpenApiDocument()
         builder.Services.AddEndpointsApiExplorer()
         builder.Services.AddSwaggerGen()
 
@@ -35,6 +36,7 @@ module Program =
 
         if app.Environment.IsDevelopment() then
             app.UseSwagger()
+            // app.UseOpenApi()
             app.UseSwaggerUI()
             ()
 
